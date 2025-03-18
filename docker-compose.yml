@@ -1,0 +1,31 @@
+services:
+  php-cli:
+    build:
+      context: .
+      dockerfile: builds/php-cli/Dockerfile
+      args:
+        - APP_SRC=${APP_SRC}
+    environment:
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ${APP_SRC}:/usr/src/app
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
