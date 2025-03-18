@@ -6,3 +6,4 @@ use App\Services\TelegramBot;
 
 $bot = new TelegramBot(getenv('TELEGRAM_TOKEN'));
 $bot->run();
+
