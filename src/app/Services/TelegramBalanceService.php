@@ -49,7 +49,7 @@ class TelegramBalanceService implements TelegramServiceContract
     {
         $floatNormalized = str_replace(',', '.', trim($message));
 
-        if (!preg_match('/^-?(0|[1-9]\d*)(\.\d+)?$/', $floatNormalized)) {
+        if (!preg_match('/^-?(0|[1-9]\d*)(\.\d{1,2})?$/', $floatNormalized)) {
             return null;
         }
 
