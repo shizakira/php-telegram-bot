@@ -53,7 +53,9 @@ class TelegramBalanceService implements TelegramServiceContract
             return null;
         }
 
-        if (str_word_count($floatNormalized) >= 100) {
+        $digitsOnly = preg_replace('/[^0-9]/', '', $floatNormalized);
+
+        if (strlen($digitsOnly) > 100) {
             return null;
         }
 
