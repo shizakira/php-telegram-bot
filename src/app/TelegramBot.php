@@ -43,6 +43,7 @@ class TelegramBot
             $response = $this->telegramService->processMessage($userId, $message);
         } catch (\TypeError $e) {
             errorLog($e->getMessage().PHP_EOL);
+            $this->offset = $updateId + 1;
 
             return;
         }
