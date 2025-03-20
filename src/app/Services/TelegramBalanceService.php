@@ -21,7 +21,7 @@ class TelegramBalanceService implements TelegramServiceContract
     {
         $this->userRepository->beginTransaction();
 
-        $user = $this->userRepository->findByUsername($userId) ?? $this->userRepository->create($userId);
+        $user = $this->userRepository->findById($userId) ?? $this->userRepository->create($userId);
 
         $amount = $this->sanitizeBalance($message);
 

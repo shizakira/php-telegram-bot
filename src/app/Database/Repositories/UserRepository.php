@@ -8,7 +8,7 @@ class UserRepository extends Repository
 {
     private static string $table = 'users';
 
-    public function findByUsername(int $userId): ?array
+    public function findById(int $userId): ?array
     {
         $statement = $this->query(
             'select * from '.self::$table.' where id = :id for update',
