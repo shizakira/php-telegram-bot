@@ -8,37 +8,36 @@ class UserRepository extends Repository
 {
     private static string $table = 'users';
 
-    public function findByUsername(string $username): ?array
+    public function findByUsername(int $userId): ?array
     {
         $statement = $this->query(
-            'select * from '.self::$table.' where username = :username for update',
-            ['username' => $username]
+            'select * from '.self::$table.' where id = :id for update',
+            ['id' => $userId]
         );
 
         return $statement->fetch() ?: null;
     }
 
-    public function create(string $username): array
+    public function create(int $userId): array
     {
         $this->query(
-            'insert into '.self::$table.' (username) values (:username )',
-            ['username' => $username]
+            'insert into '.self::$table.' (id) values (:id )',
+            ['id' => $userId]
         );
 
         return [
-            'id' => (int) $this->conn->lastInsertId(self::$table.'_id_seq'),
-            'username' => $username,
+            'id' => $userId,
             'balance' => 0.0
         ];
     }
 
-    public function updateBalance(string $username, float $newBalance): void
+    public function updateBalance(int $userId, float $newBalance): void
     {
         $this->query(
-            'update '.self::$table.' set balance = :balance where username = :username',
+            'update '.self::$table.' set balance = :balance where id = :id',
             [
                 'balance' => $newBalance,
-                'username' => $username
+                'id' => $userId
             ]
         );
     }

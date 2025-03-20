@@ -6,5 +6,5 @@ namespace App\Services\Contracts;
 
 interface TelegramServiceContract
 {
-    public function processMessage(string $username, string $message): string;
+    public function processMessage(int $userId, string $message): string;
 }

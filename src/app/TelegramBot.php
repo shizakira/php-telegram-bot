@@ -26,8 +26,6 @@ class TelegramBot
             foreach ($updates as $update) {
                 $this->dispatch($update);
             }
-
-            sleep(1);
         }
     }
 
@@ -36,12 +34,18 @@ class TelegramBot
      */
     public function dispatch(Update $update): void
     {
+        $userId = $update->message?->from?->id;
+        $chatId = $update->message?->chat?->id;
         $updateId = $update->updateId;
-        $message = $update->message->text;
-        $username = $update->message->from->username;
-        $chatId = $update->message->chat->id;
+        $message = $update->message?->text;
 
-        $response = $this->telegramService->processMessage($username, $message);
+        try {
+            $response = $this->telegramService->processMessage($userId, $message);
+        } catch (\InvalidArgumentException $e) {
+            errorLog($e->getMessage().PHP_EOL);
+
+            return;
+        }
 
         $this->telegram->sendMessage([
             'chat_id' => $chatId,
