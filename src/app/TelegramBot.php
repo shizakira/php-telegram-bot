@@ -41,7 +41,7 @@ class TelegramBot
 
         try {
             $response = $this->telegramService->processMessage($userId, $message);
-        } catch (\InvalidArgumentException $e) {
+        } catch (\TypeError $e) {
             errorLog($e->getMessage().PHP_EOL);
 
             return;

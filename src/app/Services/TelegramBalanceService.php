@@ -53,6 +53,10 @@ class TelegramBalanceService implements TelegramServiceContract
             return null;
         }
 
+        if (str_word_count($floatNormalized) >= 100) {
+            return null;
+        }
+
         return (float) $floatNormalized;
     }
 }
