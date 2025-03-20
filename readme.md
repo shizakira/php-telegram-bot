@@ -21,7 +21,7 @@
 Убедитесь, что Docker и Docker Compose установлены.
 Запустите приложение с помощью команды:
 ```bash
-  docker compose up -d  
+docker compose up -d  
 ```
 ## Управление проектом
 
