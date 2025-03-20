@@ -17,11 +17,11 @@ class TelegramBalanceService implements TelegramServiceContract
     ) {
     }
 
-    public function processMessage(string $username, string $message): string
+    public function processMessage(int $userId, string $message): string
     {
         $this->userRepository->beginTransaction();
 
-        $user = $this->userRepository->findByUsername($username) ?? $this->userRepository->create($username);
+        $user = $this->userRepository->findByUsername($userId) ?? $this->userRepository->create($userId);
 
         $amount = $this->sanitizeBalance($message);
 
@@ -34,7 +34,7 @@ class TelegramBalanceService implements TelegramServiceContract
                 return self::$negativeBalanceError;
             }
 
-            $this->userRepository->updateBalance($username, $newBalance);
+            $this->userRepository->updateBalance($userId, $newBalance);
             $this->userRepository->commit();
 
             return sprintf(self::$balanceResponse.' $%.2f', $newBalance);
