@@ -20,20 +20,20 @@
 ### 2. Запуск проекта
 Убедитесь, что Docker и Docker Compose установлены.
 Запустите приложение с помощью команды:
-  ```bash
-  docker-compose up -d
-  ```
+```bash
+  docker compose up -d  
+```
 ## Управление проектом
 
 ### Остановка
 Для остановки контейнеров выполните:
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Перезапуск
 Чтобы перезапустить проект:
 ```bash
-docker-compose down && docker-compose up -d
+docker compose down && docker compose up -d
 ```
 
